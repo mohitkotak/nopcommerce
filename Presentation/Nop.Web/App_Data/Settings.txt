@@ -1,0 +1,2 @@
+DataProvider: sqlserver
+DataConnectionString: Data Source=dotnet-dev\SQLEXPRESS;Initial Catalog=Mohit_nopCommerce;Integrated Security=False;Persist Security Info=False;User ID=MohitNC;Password=Drc#12345

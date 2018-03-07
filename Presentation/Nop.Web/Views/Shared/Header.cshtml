@@ -1,0 +1,33 @@
+﻿<header class="clearfix">
+    <a href="/" class="logo"><img src="~/Themes/NewCustomTheme/Content/images/logo.png.png" alt="" style="width:192px;height:60px;"></a>
+    @Html.Widget("header")
+    <div class="mobile-btn">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </div>
+    <div class="user_access">
+        @*<div id="language_flag"><a href="#" class="active">English</a></div>
+            <div id="currency"><a href="#">USD</a></div>*@
+        @*<div id="user_account"><a href="login.html">Account</a></div>*@
+        <div id="search_box">
+            <a href="javascript:void(0);"><i class="fa fa-search"></i></a>
+            <div class="search-form">
+                <div class="box">
+                    @*<input type="text" placeholder="Enter Keywords To Search...">
+                    <input type="submit" value="">*@
+                    @Html.Action("SearchBox", "Catalog")
+                </div>
+                @*<div class="icon"><i class="fa fa-close"></i></div>*@
+            </div>
+        </div>
+       
+
+        @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+        
+
+    </div>
+
+    @Html.Action("HeaderLinks", "Common")
+
+</header>

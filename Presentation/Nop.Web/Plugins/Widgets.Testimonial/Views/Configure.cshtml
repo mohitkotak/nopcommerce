@@ -1,0 +1,139 @@
+﻿@{
+    var defaultGridPageSize = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().DefaultGridPageSize;
+    var gridPageSizes = EngineContext.Current.Resolve<Nop.Core.Domain.Common.AdminAreaSettings>().GridPageSizes;
+}
+@using Nop.Core.Infrastructure
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "testimonial-instore-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel-group basic-setting">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="testimonial-grid"></div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#testimonial-grid").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    destroy: {
+                                        url: "@Html.Raw(Url.Action("TestimonialDelete", "Testimonial", new RouteValueDictionary() { { "Namespaces", "Nop.Plugin.Widgets.Testimonial.Controllers" }, { "area", "" } }))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                    read: {
+                                        url: "@Html.Raw(Url.Action("TestimonialList", "Testimonial", new RouteValueDictionary() { { "Namespaces", "Nop.Plugin.Widgets.Testimonial.Controllers" }, { "area", "" } }))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    }
+                                },schema: {
+                                    data: "Data",
+                                    total: "Total",
+                                    errors: "Errors",
+                                    model: {
+                                        id: "Id",
+                                        fields: {
+                                            DisplayOrder: { type: "number" },
+                                            CustomerName:{ type: "string" },
+                                            TitleTestimonial: { type: "string"},
+                                            DescriptionTestimonial: {type: "string"},
+                                            TitleVisibility: { type: "boolean" },
+                                            Visibility: {type :"boolean"}
+                                        }
+                                    }
+                                },
+                                requestEnd: function (e) {
+                                    if (e.type == "update") {
+                                        this.read();
+                                    }
+                                },
+                                error: function (e) {
+                                    display_kendoui_grid_error(e);
+                                    this.cancelChanges();
+                                },
+                                pageSize: @(defaultGridPageSize),
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable: {
+                                refresh: true,
+                                pageSizes: [@(gridPageSizes)]
+                            },
+                            editable: {
+                                confirmation: false,
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [{
+                                field: "CustomerName",
+                                title:  "@T("Plugins.Widgets.Testimonial.Fields.CustomerName")",
+                                width: 100
+                            },{
+                                field: "TitleTestimonial",
+                                title:  "@T("Plugins.Widgets.Testimonial.Fields.TitleTestimonial")",
+                                width: 150
+                            },{
+                                field: "DescriptionTestimonial",
+                                title:  "@T("Plugins.Widgets.Testimonial.Fields.DescriptionTestimonial")",
+                                width: 200
+                            },{
+                                field: "DisplayOrder",
+                                title:  "@T("Plugins.Widgets.Testimonial.Fields.DisplayOrder")",
+                                width: 50
+                            },
+                             {
+                                 field: "TitleVisibility",
+                                 title: "@T("Plugins.Widgets.Testimonial.Fields.TitleVisibility")",
+                                 width: 50,
+                                 attributes: { style: "text-align:center" },
+                                 template: "<input type='checkbox' disabled='disabled' name='TitleVisibility' # if(TitleVisibility) {# checked='checked' #}  # />"
+                             },
+                             {
+                                 field: "Visibility",
+                                 title: "@T("Plugins.Widgets.Testimonial.Fields.Visibility")",
+                                 width: 50,
+                                 attributes: { style: "text-align:center" },
+                                 template: "<input type='checkbox' disabled='disabled' name='Visibility' # if(Visibility) {# checked='checked' #}  # />"
+                             },
+                              {
+                                  field: "Id",
+                                  title: "@T("Admin.Common.Edit")",
+                                  width: 100,
+                                  headerAttributes: { style: "text-align:center" },
+                                  attributes: { style: "text-align:center" },
+                                  template: "<button onclick=\"javascript:OpenWindow('@Url.RouteUrl("Plugin.Testimonial.Edit")?id=#=Id#&btnId=btnRefresh&formId=testimonial-instore-form', 800, 800, true); return false;\" class='btn btn-default'><i class=\"fa fa-pencil\"></i>@T("Admin.Common.Edit")</button>"
+                              }, {
+                                  command: { name: "destroy", text: "@T("Admin.Common.Delete")" },
+                                  title: "@T("Admin.Common.Delete")",
+                                  headerAttributes: { style: "text-align:center" },
+                                  attributes: { style: "text-align:center" },
+                                  width: 100
+                              }
+                            ]
+                        });
+
+                    });
+                </script>
+              
+            </div>
+            <div class="panel-footer">
+                <input type="submit" id="btnAddNewOption" class="btn btn-primary" value="@T("Plugins.Widgets.Testimonial.Fields.AddNewTestimonial")" onclick="javascript:OpenWindow('@(Url.RouteUrl("Plugin.Testimonial.Create") + "?btnId=btnRefresh&formId=testimonial-instore-form")', 800, 800, true); return false;" />
+                <input type="submit" id="btnRefresh" class="btn btn-default" style="display: none" />
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnRefresh').click(function () {
+                var grid = $("#testimonial-grid").data('kendoGrid');
+                grid.dataSource.read();
+                return false;
+            });
+        });
+    </script>
+}

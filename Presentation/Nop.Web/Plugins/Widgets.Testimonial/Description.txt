@@ -1,0 +1,9 @@
+﻿Group: Widgets
+FriendlyName: Widgets Testimonial
+SystemName: Widgets.Testimonial
+Version: 1.0
+SupportedVersions: 3.90
+Author: http://www.LambdaEasy.com
+DisplayOrder: 1
+FileName: Nop.Plugin.Widgets.Testimonial.dll
+Description: System plugins testimony with slider testimony

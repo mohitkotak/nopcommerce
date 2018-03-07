@@ -1,0 +1,10 @@
+D:\Projects\nopCommerce_3.90_Source\Presentation\Nop.Web\Plugins\Shipping.CanadaPost\Views\Configure.cshtml
+D:\Projects\nopCommerce_3.90_Source\Presentation\Nop.Web\Plugins\Shipping.CanadaPost\web.config
+D:\Projects\nopCommerce_3.90_Source\Presentation\Nop.Web\Plugins\Shipping.CanadaPost\Description.txt
+D:\Projects\nopCommerce_3.90_Source\Presentation\Nop.Web\Plugins\Shipping.CanadaPost\logo.jpg
+D:\Projects\nopCommerce_3.90_Source\Presentation\Nop.Web\Plugins\Shipping.CanadaPost\Nop.Plugin.Shipping.CanadaPost.dll.config
+D:\Projects\nopCommerce_3.90_Source\Presentation\Nop.Web\Plugins\Shipping.CanadaPost\Nop.Plugin.Shipping.CanadaPost.dll
+D:\Projects\nopCommerce_3.90_Source\Presentation\Nop.Web\Plugins\Shipping.CanadaPost\Nop.Plugin.Shipping.CanadaPost.pdb
+D:\Projects\nopCommerce_3.90_Source\Plugins\Nop.Plugin.Shipping.CanadaPost\obj\Debug\Nop.Plugin.Shipping.CanadaPost.csprojResolveAssemblyReference.cache
+D:\Projects\nopCommerce_3.90_Source\Plugins\Nop.Plugin.Shipping.CanadaPost\obj\Debug\Nop.Plugin.Shipping.CanadaPost.dll
+D:\Projects\nopCommerce_3.90_Source\Plugins\Nop.Plugin.Shipping.CanadaPost\obj\Debug\Nop.Plugin.Shipping.CanadaPost.pdb

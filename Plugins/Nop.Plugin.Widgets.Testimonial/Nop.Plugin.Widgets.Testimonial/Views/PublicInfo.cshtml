@@ -1,0 +1,39 @@
+﻿
+@model Nop.Plugin.Widgets.Testimonial.Models.PublicInfoModel
+@using Nop.Web.Framework.UI
+@{
+    Layout = "";
+    Html.AddScriptParts("~/Plugins/Widgets.Testimonial/Scripts/sss.js");
+    Html.AddCssFileParts("~/Plugins/Widgets.Testimonial/Content/sss.css");
+}
+
+
+<section class="testimonials">
+    <div class="container">
+        <div id="slideshow" class="row slider">
+            @foreach (var item in Model.items)
+            {
+                <div class="col-sm-10 col-sm-offset-1 text-center gris helvetica-i">
+                    @if (item.TitleVisibility)
+                    {
+                        <p class="name raleway-b negro">@item.TitleTestimonial</p>
+                    }
+                    <p>@item.DescriptionTestimonial</p>
+
+                    <p class="name raleway-b subrayado negro">@item.CustomerName</p>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $('.slider').sss({
+            slideShow: true,
+            //speed: 5000// Set to false to prevent SSS from automatically animating.startOn : 0, // Slide to display first. Uses array notation (0 = first slide).transition : 400, // Length (in milliseconds) of the fade transition.speed : 3500, // Slideshow speed in milliseconds.showNav : true // Set to false to hide navigation arrows.
+        });
+
+    });
+</script>

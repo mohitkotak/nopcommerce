@@ -1,0 +1,194 @@
+﻿@model TestimonialModel
+@using Nop.Plugin.Widgets.Testimonial.Models;
+@using Nop.Web.Framework;
+@using Nop.Core.Infrastructure;
+
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+
+@if (ViewBag.RefreshPage == true)
+{
+    <script type="text/javascript">
+        try {window.opener.document.forms['@(ViewBag.formId)'].@(ViewBag.btnId).click();}
+        catch (e){}
+        window.close();
+    </script>
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <p>
+            <b>@T("Plugins.Widgets.Testimonial.fields.AddNewRecordTitle")</b>
+        </p>
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.NopLabelFor(model => model.StoreId)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.StoreId, Model.AvailableStores, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StoreId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.NopLabelFor(model => model.CustomerName)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.CustomerGuid, Model.AvailableCustomer, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerGuid)
+            </div>
+        </div>
+        <div id="PersonalName" class="form-group" style="@(Model.CustomerGuid != null ? "display:none" : "")">
+            <div class="col-md-3">
+                @Html.NopLabelFor(model => model.CustomerCustomerName)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.CustomerCustomerName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerCustomerName)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.NopLabelFor(model => model.TitleTestimonial)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.TitleTestimonial, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TitleTestimonial)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.NopLabelFor(model => model.DescriptionTestimonial)
+            </div>
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.DescriptionTestimonial, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DescriptionTestimonial)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.NopLabelFor(model => model.DisplayOrder)
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.DisplayOrder)
+                @Html.ValidationMessageFor(model => model.DisplayOrder)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.NopLabelFor(model => model.TitleVisibility)
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.TitleVisibility)
+                @Html.ValidationMessageFor(model => model.TitleVisibility)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.NopLabelFor(model => model.Visibility)
+            </div>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Visibility)
+                @Html.ValidationMessageFor(model => model.Visibility)
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    
+
+    @* available stores for inline editing *@
+    var stores = [
+     @for (int i = 0; i < Model.AvailableStores.Count; i++)
+     {
+        var store = Model.AvailableStores[i];
+        <text>
+        {
+            StoreId: @store.Value,
+            StoreName: "@(store.Text)"
+        }</text>
+        if (i != Model.AvailableStores.Count - 1)
+        {
+            <text>,</text>
+        }
+     }
+    ];
+
+    var customer = [
+    @for (int i = 0; i < Model.AvailableCustomer.Count; i++)
+    {
+        var store = Model.AvailableCustomer[i];
+        <text>
+        {
+            CustomerGuid: '@store.Value',
+            CustomerName: "@(store.Text)"
+        }</text>
+        if (i != Model.AvailableCustomer.Count - 1)
+        {
+            <text>,</text>
+        }
+    }
+    ];
+    $('#CustomerGuid').on('change',function() {
+        
+        if (this.value !== "*"){
+            $('#PersonalName').attr("style","display:none;");
+            $('#CustomerCustomerName').val("")
+        }
+        else
+        { $('#PersonalName').removeAttr("style");
+            $('#CustomerCustomerName').val("")
+        }
+    })
+
+    function CustomerDropDownEditor(container, options) {
+        $('<input required data-text-field="StoreName" data-value-field="CustomerName" data-bind="value:' + options.field + '" />')
+            .appendTo(container)
+            .kendoDropDownList({
+                autoBind: false,
+                dataSource: {
+                    data: stores,
+                    schema: {
+                        model: {
+                            fields: {
+
+                                CustomerGuid: { type: "string" },
+                                CustomerName: { type: "string" },
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        display_kendoui_grid_error(e);
+                        this.cancelChanges();
+                    }
+                },
+            });
+    }
+
+    function storesDropDownEditor(container, options) {
+        $('<input required data-text-field="StoreName" data-value-field="StoreId" data-bind="value:' + options.field + '" />')
+            .appendTo(container)
+            .kendoDropDownList({
+                autoBind: false,
+                dataSource: {
+                    data: stores,
+                    schema: {
+                        model: {
+                            fields: {
+                                StoreId: { type: "string" },
+                                StoreName: { type: "string" },
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        display_kendoui_grid_error(e);
+                        this.cancelChanges();
+                    }
+                },
+            });
+    }
+</script>

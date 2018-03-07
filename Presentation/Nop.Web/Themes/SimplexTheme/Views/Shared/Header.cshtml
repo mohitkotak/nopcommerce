@@ -1,0 +1,58 @@
+﻿<div class="header">
+    @Html.Widget("header")
+    <div class="header-upper">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 header-upper-left pull-left">
+                    <div class="header-selectors-wrapper">
+
+                        <div class="currency-selector">
+                            <div class="animated-words">
+                                <span>Stay Home and Shop Online.</span>
+                                <span>Shop in the Name Of Love.</span>
+                                <span>Saturday is For Shopping.</span>
+                                <span>Shopping is always good idea.</span>
+                                <span>When the going get tough the tough go shopping.</span>
+                                <span>Work hard & you can shop harder.</span>
+                                <span>If You Can't Stop Thinkking About It...Buy It.</span>
+                            </div>
+                        </div>
+
+                        @*@Html.Action("TaxTypeSelector", "Common")*@
+
+                        @*@Html.Action("CurrencySelector", "Common")*@
+
+                        @Html.Action("LanguageSelector", "Common")
+
+                        @Html.Widget("header_selectors")
+                    </div>
+                </div>
+                <div class="col-md-6 header-upper-right pull-right">
+                    <div class="header-links-wrapper">
+                        @Html.Action("HeaderLinks", "Common")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-lower">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-left">
+                    <div class="search-box">
+                        @Html.Action("SearchBox", "Catalog")
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="header-logo">
+                        @Html.Action("Logo", "Common")
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

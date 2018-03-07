@@ -1,0 +1,1 @@
+D:\Projects\nopCommerce_3.90_Source\Nop.Plugin.Payments.CashOnDelivery\obj\Debug\Nop.Plugin.Payments.CashOnDelivery.csprojResolveAssemblyReference.cache
